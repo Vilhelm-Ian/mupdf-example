@@ -1,0 +1,167 @@
+/* App.css */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  /* Prevent page scroll */
+}
+
+header {
+  padding: 10px;
+  background-color: #f0f0f0;
+  display: flex;
+  gap: 10px;
+  /* Space out menu items */
+  align-items: center;
+  /* Center items vertically */
+}
+
+header>details {
+  z-index: 100;
+}
+
+
+header>details>summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+header>details>summary::marker {
+  display: none;
+  /* removes the list style arrow*/
+}
+
+header>details>menu {
+  border: 1px solid black;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 100;
+}
+
+header>details[open]>menu {
+  display: flex;
+}
+
+header>details>menu li button {
+  padding: 8px 12px;
+  text-align: left;
+}
+
+.message {
+  padding: 5px;
+  text-align: center;
+  color: red;
+}
+
+.viewer-container {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.outline-panel {
+  width: 200px;
+  background: #e0e0e0;
+  border-right: 1px solid black;
+  overflow-y: auto;
+  padding: 10px;
+  display: none;
+  /* Initially hidden */
+}
+
+.page-panel {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+  /* Center content horizontally */
+}
+
+
+.pages {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.page {
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.page canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.page .text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.page .text text {
+  fill: black;
+}
+
+
+.page .link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.page .link a {
+  position: absolute;
+  background-color: transparent;
+  border: 1px solid transparent;
+  /* add if you want a visual link indication*/
+  pointer-events: auto;
+}
+
+.page .search {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.page .search div {
+  position: absolute;
+  background-color: #ffff0040;
+  pointer-events: none;
+
+}
+
+.search-panel {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: white;
+  padding: 10px;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+}
+
+.search-panel input {
+  margin-right: 10px;
+}
+
+.search-panel .search-buttons {
+  display: flex;
+}
+
+.do-content-select {
+  user-select: text;
+}
