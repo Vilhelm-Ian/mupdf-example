@@ -34,16 +34,28 @@ export class MupdfWorker {
     return this.document.countPages();
   }
 
-  renderPageAsImage(pageIndex = 0, scale = 1): Uint8Array {
+  renderPageAsImage(pageIndex = 0, scale = 1): ImageData {
     if (!this.document) throw new Error("Document not loaded");
+    const doc_to_screen = mupdfjs.Matrix.scale(scale, scale)
 
-    const page = this.document.loadPage(pageIndex);
-    const pixmap = page.toPixmap(
-      [scale, 0, 0, scale, 0, 0],
-      mupdfjs.ColorSpace.DeviceRGB
-    );
+    let doc = this.document
+    let page = doc.loadPage(pageIndex)
+    let bbox = mupdfjs.Rect.transform(page.getBounds(), doc_to_screen)
 
-    return pixmap.asPNG();
+    let pixmap = new mupdfjs.Pixmap(mupdfjs.ColorSpace.DeviceRGB, bbox, true)
+    pixmap.clear(255)
+
+    let device = new mupdfjs.DrawDevice(doc_to_screen, pixmap)
+    page.run(device, mupdfjs.Matrix.identity)
+    device.close()
+
+    // TODO: do we need to make a copy with slice() ?
+    let imageData = new ImageData(pixmap.getPixels().slice(), pixmap.getWidth(), pixmap.getHeight())
+
+    pixmap.destroy()
+
+    // TODO: do we need to pass image data as transferable to avoid copying?
+    return imageData
   }
 }
 

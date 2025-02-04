@@ -53,16 +53,11 @@ export function useMupdf() {
       pageIndex,
       (window.devicePixelRatio * 96) / 72
     );
+    console.log(pngData)
+    canvasContext.canvas.width = pngData.width;
+    canvasContext.canvas.height = pngData.height;
 
-    const blob = new Blob([pngData], { type: 'image/png' });
-    const url = URL.createObjectURL(blob);
-
-    const imageBitmap = await createImageBitmap(blob);
-
-    canvasContext.canvas.width = imageBitmap.width;
-    canvasContext.canvas.height = imageBitmap.height;
-    canvasContext.drawImage(imageBitmap, 0, 0);
-    URL.revokeObjectURL(url);
+    canvasContext.putImageData(pngData, 0, 0);
 
   }, []);
 

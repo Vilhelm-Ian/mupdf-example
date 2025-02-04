@@ -45,7 +45,7 @@ function App() {
             if(canvasContext){
                 renderPage(currentPage, canvasContext);
             }
-    }, [isWorkerInitialized, currentPage, renderPage]);
+    }, [loading]);
 
 
 
